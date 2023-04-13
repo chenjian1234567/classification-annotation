@@ -27,18 +27,21 @@ class ImageClassifier:
         self.select_output_folder_button.grid(row=2, column=0)
 
         self.classify_button_1 = Button(master, text="类别 1", command=lambda: self.classify_image(1))
-        self.classify_button_1.grid(row=1, column=2)
+        self.classify_button_1.grid(row=3, column=0)
 
         self.classify_button_2 = Button(master, text="类别 2", command=lambda: self.classify_image(2))
-        self.classify_button_2.grid(row=2, column=2)
+        self.classify_button_2.grid(row=3, column=1)
 
         self.classify_button_3 = Button(master, text="类别 3", command=lambda: self.classify_image(3))
         self.classify_button_3.grid(row=3, column=2)
+
+        self.progress_text = self.canvas.create_text(200, 20, text="已标注：0 / 总数：0")
 
     def select_image_folder(self):
         self.image_folder = filedialog.askdirectory()
         self.image_files = [file for file in os.listdir(self.image_folder) if file.lower().endswith(('.png', '.jpg', '.jpeg'))]
         self.load_image()
+        self.update_progress()
 
     def select_output_folder(self):
         self.output_folder = filedialog.askdirectory()
@@ -61,11 +64,11 @@ class ImageClassifier:
             src_path = os.path.join(self.image_folder, self.image_files[self.current_image_index])
             dest_path = os.path.join(output_category_folder, self.image_files[self.current_image_index])
 
-            shutil.move(src_path, dest_path)
+            shutil.move(src_path, dest_path)  # 使用 shutil.move()
             self.current_image_index += 1
             self.load_image()
+            self.update_progress()
 
-if __name__ == "__main__":
-    root = Tk()
-    app = ImageClassifier(root)
-    root.mainloop()
+    def update_progress(self):
+        progress_str = f"已标注：{self.current_image_index} / 总数：{len(self.image_files)}"
+        self.canvas.itemconfig(self
