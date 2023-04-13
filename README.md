@@ -26,6 +26,4 @@ python image_classifier.py
 6. 图片将自动剪切到对应类别的文件夹中，并切换到下一张图片。
 
 注意：请确保您的图片文件夹中只包含图片文件（.png、.jpg、.jpeg），否则程序可能无法正常工作。
-git add README.md
-git commit -m "Add README.md"
-git push
+
